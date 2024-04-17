@@ -59,6 +59,7 @@ def execute(command):
     logging.info('[Run command] ' + str(command))
     process = subprocess.Popen(command.split(), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = process.communicate()
+    print(command.split())
     print(out)
     print(err)
     exit_code = process.wait()
