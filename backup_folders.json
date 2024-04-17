@@ -1,0 +1,11 @@
+{
+  "backup_archives": [
+    {
+      "name": "bookstack",
+      "folders": [
+        "/root/dev/bookstack_deploy/bookstack_app_data",
+        "/root/dev/bookstack_deploy/bookstack_db_data"
+      ]
+    }
+  ]
+}
