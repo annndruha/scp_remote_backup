@@ -49,7 +49,7 @@ venv/bin/python3 main.py
 
 Edit cronfile:
 ```bash
-bashcrontab -e
+crontab -e
 ```
 
 [Time periods examples](https://crontab.guru/examples.html). Next example is every day backup:
