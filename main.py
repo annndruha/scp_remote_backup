@@ -58,11 +58,12 @@ def catch_errors(func):
 def execute(command):
     logging.info('[Run command] ' + str(command))
     process = subprocess.Popen(command.split(), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    exit_code = process.wait()
+    print(exit_code)
     out, err = process.communicate()
     print(command.split())
     print(out)
     print(err)
-    exit_code = process.wait()
     if exit_code != 0:
         raise subprocess.CalledProcessError(returncode=process.returncode, cmd=str(err))
 
