@@ -12,7 +12,7 @@ git clone https://github.com/annndruha/scp_remote_backup.git && cd scp_remote_ba
 
 Create venv
 ```bash
-python3 -m venv venv && venv/bin/python3 -m pip install requirements.txt
+python3 -m venv venv && venv/bin/python3 -m pip install -r requirements.txt
 ```
 
 Copy configs to repository root directory:
@@ -37,6 +37,12 @@ For new remote servers check that ssh/scp connections is added to known_host, or
 
 ```bash
 ssh -p 22 -i ~/.ssh/private_key -r user@my.example.com
+```
+
+**Manual test**
+
+```bash
+venv/bin/python3 main.py
 ```
 
 **Script scheduling via cron**

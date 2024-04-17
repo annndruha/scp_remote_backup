@@ -56,10 +56,11 @@ def catch_errors(func):
 
 
 def execute(command):
-    logging.info(command)
-    
-    process = subprocess.Popen([*command.split()], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    logging.info('[Run command] ' + str(command))
+    process = subprocess.Popen(command.split(), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = process.communicate()
+    print(out)
+    print(err)
     exit_code = process.wait()
     if exit_code != 0:
         raise subprocess.CalledProcessError(returncode=process.returncode, cmd=str(err))
@@ -80,7 +81,7 @@ def make_backup(_archive):
     os.makedirs(temp_folder)
 
     for remote_dir in _archive["remote_folders"]:
-        cmd = f'scp -P {SSH_PORT} -i {SSH_PRIVATE_KEY_PATH} -r {SSH_USER}@{SSH_HOST}:{remote_dir} {temp_folder}'
+        cmd = f'scp -v -P {SSH_PORT} -i {SSH_PRIVATE_KEY_PATH} -r {SSH_USER}@{SSH_HOST}:{remote_dir} {temp_folder}'
         execute(cmd)
 
     archive_name = os.path.join(BACKUP_FOLDER, f'{_archive["name"]}_{stamp}')
