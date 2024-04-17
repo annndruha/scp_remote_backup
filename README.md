@@ -23,7 +23,7 @@ Change configs values with you tokens and remote backup folders.
 
 Edit cronfile:
 ```bash
-bashcrontab -e
+crontab -e
 ```
 
 [Time periods examples](https://crontab.guru/examples.html). Next example is every day backup:
