@@ -1,0 +1,20 @@
+{
+  "backup_folder_size_limit_alert": "10GB",
+  "backup_archives": [
+    {
+      "name": "my_cool_service_need_to_backup",
+      "remote_folders": [
+        "/user/my/cool/service/folder/to/backup",
+        "/user/my/cool/service/another/folder/to/backup",
+        "/etc/my/cool/service/settings/folder"
+      ]
+    },
+    {
+      "name": "another_cool_backup_archive",
+      "remote_folders": [
+        "/root/folder/foo",
+        "/root/folder/bar"
+      ]
+    }
+  ]
+}

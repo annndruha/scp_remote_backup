@@ -13,12 +13,13 @@ logging.basicConfig(
 )
 
 config = dotenv_values('.env')
-IP_OR_DOMAIN = config['IP_OR_DOMAIN']
-USER = config['USER']
-PORT = config['PORT']
+SSH_HOST = config['SSH_HOST']
+SSH_USER = config['SSH_USER']
+SSH_PORT = config['SSH_PORT']
+SSH_PRIVATE_KEY_PATH = config['PRIVATE_KEY_PATH']
+
 TG_BOT_TOKEN = config['TG_BOT_TOKEN']
 TG_CHAT_ID = config['TG_CHAT_ID']
-PRIVATE_KEY_PATH = config['PRIVATE_KEY_PATH']
 
 
 def execute_remote(command):
@@ -38,16 +39,12 @@ with open('backup_folders.json') as f:
 
 for archive in backup_settings['backup_archives']:
     temp_local_folder = f'temp_{archive["name"]}_{int(time.time())}'
-    remote_paths = archive["folders"]
+    remote_paths = archive["remote_folders"]
 
     execute_remote(f'mkdir {os.path.join(os.getcwd(), temp_local_folder)}')
     for remote_dir in remote_paths:
-        execute_remote(f'scp -P {PORT} -i {PRIVATE_KEY_PATH} -r {USER}@{IP_OR_DOMAIN}:{remote_dir} {temp_local_folder}')
+        execute_remote(f'scp -P {SSH_PORT} -i {SSH_PRIVATE_KEY_PATH} -r {SSH_USER}@{SSH_HOST}:{remote_dir} {temp_local_folder}')
     shutil.make_archive(f'{archive["name"]}_{int(time.time())}', 'zip', temp_local_folder)
     shutil.rmtree(temp_local_folder)
 
-# === SCRIPT SHEDULLED BY CRON
-# === edit cronfile:
-# crontab -e
-# === Add this line to cronfile:
-# * * * * * cd /workdir && /workdir/venv/bin/python3 main.py >> /workdir/logs.txt 2>&1
+
