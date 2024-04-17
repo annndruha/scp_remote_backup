@@ -82,7 +82,7 @@ def make_backup(_archive):
     os.makedirs(temp_folder)
 
     for remote_dir in _archive["remote_folders"]:
-        cmd = f'scp -v -P {SSH_PORT} -i {SSH_PRIVATE_KEY_PATH} -r {SSH_USER}@{SSH_HOST}:{remote_dir} {temp_folder}'
+        cmd = f'scp -v -r -P {SSH_PORT} -i {SSH_PRIVATE_KEY_PATH} {SSH_USER}@{SSH_HOST}:{remote_dir} {temp_folder}'
         execute(cmd)
 
     archive_name = os.path.join(BACKUP_FOLDER, f'{_archive["name"]}_{stamp}')
