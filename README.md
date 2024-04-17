@@ -1,4 +1,4 @@
-# scp Remote Backup
+# SCP Remote Backup [IN DEVELOPMENT]
 Script for pull and zip folders from another server.
 
 # Init
