@@ -1,25 +1,45 @@
 # SCP Remote Backup [IN DEVELOPMENT]
 Script for pull and zip folders from another server.
 
-# Init
+# Install (Ubuntu)
+
+**Clone and configs**
 
 Clone repo
 ```bash
-git clone https://github.com/annndruha/scp_remote_backup.git
-cd scp_remote_backup
+git clone https://github.com/annndruha/scp_remote_backup.git && cd scp_remote_backup
 ```
 
-Copy config to repository root directory:
+Create venv
+```bash
+python3 -m venv venv && venv/bin/python3 -m pip install requirements.txt
+```
+
+Copy configs to repository root directory:
 
 ```bash
-cp config_examples/.env .
-cp config_examples/backup_folders.json .
+cp -t . config_examples/.env config_examples/backup_folders.json
 ```
 
 Change configs values with you tokens and remote backup folders.
 
+**Make sure that private key is correct permissions**
 
-# Script scheduling via cron (Ubuntu)
+Correct permissions: `-r--------`
+
+```bash
+chmod 400 ~/.ssh/private_key
+```
+
+**Known hosts**
+
+For new remote servers check that ssh/scp connections is added to known_host, or just connect first time manually:
+
+```bash
+ssh -p 22 -i ~/.ssh/private_key -r user@my.example.com
+```
+
+**Script scheduling via cron**
 
 Edit cronfile:
 ```bash
@@ -29,5 +49,5 @@ bashcrontab -e
 [Time periods examples](https://crontab.guru/examples.html). Next example is every day backup:
 
 ```text
-0 0 * * * cd /workdir && python3 main.py >> /workdir/logs.txt 2>&1
+0 0 * * * cd /workdir && venv/bin/python3 main.py >> /workdir/logs.txt 2>&1
 ```
