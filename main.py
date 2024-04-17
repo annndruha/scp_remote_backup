@@ -46,9 +46,6 @@ def catch_errors(func):
     def wrapper(*args, **kwargs):
         try:
             func(*args, **kwargs)
-        except subprocess.SubprocessError as err:
-            logging.error(err)
-            send_telegram_message('❌🔄 Backup failed: ' + str(err))
         except Exception as err:
             logging.error(err)
             send_telegram_message('❌🔄 Backup failed: ' + str(err))
@@ -59,11 +56,7 @@ def execute(command):
     logging.info('[Run command] ' + str(command))
     process = subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     exit_code = process.wait()
-    print(exit_code)
     out, err = process.communicate()
-    print(command.split())
-    print(out)
-    print(err)
     if exit_code != 0:
         raise subprocess.CalledProcessError(returncode=process.returncode, cmd=str(err))
 
@@ -83,7 +76,7 @@ def make_backup(_archive):
     os.makedirs(temp_folder)
 
     for remote_dir in _archive["remote_folders"]:
-        cmd = f'scp -v -r -P {SSH_PORT} -i {SSH_PRIVATE_KEY_PATH} {SSH_USER}@{SSH_HOST}:{remote_dir} {temp_folder}'
+        cmd = f'scp -r -P {SSH_PORT} -i {SSH_PRIVATE_KEY_PATH} {SSH_USER}@{SSH_HOST}:{remote_dir} {temp_folder}'
         execute(cmd)
 
     archive_name = os.path.join(BACKUP_FOLDER, f'{_archive["name"]}_{stamp}')
