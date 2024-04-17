@@ -1,6 +1,7 @@
 # scp_remote_backup
 backups/
 *.zip
+backup_folders.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
