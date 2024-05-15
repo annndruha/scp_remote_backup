@@ -70,7 +70,7 @@ def make_backup(_archive):
     if not os.path.exists(TEMP):
         os.makedirs(TEMP)
 
-    stamp = datetime.datetime.now().strftime("%Y_%d_%m_%H_%M_%S")
+    stamp = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
     name = f'{_archive["name"]}_{stamp}'
     temp_folder = os.path.join(TEMP, name)
     os.makedirs(temp_folder)
