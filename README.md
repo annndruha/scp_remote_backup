@@ -1,59 +1,49 @@
-# SCP Remote Backup [IN DEVELOPMENT]
-Script for pull and zip folders from another server.
+# SCP Remote Backup (Ubuntu)
+Script for pull some folders/files from another server and zip it as backup.
 
-# Install (Ubuntu)
+# Install and setup
 
-**Clone and configs**
+* Clone repo
+  ```bash
+  git clone https://github.com/annndruha/scp_remote_backup.git && cd scp_remote_backup
+  ```
 
-Clone repo
-```bash
-git clone https://github.com/annndruha/scp_remote_backup.git && cd scp_remote_backup
-```
+* Create venv
+  ```bash
+  python3 -m venv venv && venv/bin/python3 -m pip install -r requirements.txt
+  ```
 
-Create venv
-```bash
-python3 -m venv venv && venv/bin/python3 -m pip install -r requirements.txt
-```
+* Copy configs to repository root directory:
+  ```bash
+  cp -t . config_examples/.env config_examples/backup_folders.json
+  ```
 
-Copy configs to repository root directory:
+* Change `.env`-file with you tokens and specify remote folders needs to backup in `backup_folders.json`.
 
-```bash
-cp -t . config_examples/.env config_examples/backup_folders.json
-```
+## First time
+* Make sure that private key is correct permissions like `-r--------`. Change permissions if needed: 
+  ```bash
+  chmod 400 ~/.ssh/private_key
+  ```
 
-Change `.env`-file with you tokens and specify remote folders needs to backup in `backup_folders.json`.
+* For new servers check that ssh/scp connections is added to known_host, or just connect first time manually:
+  ```bash
+  ssh -p 22 -i ~/.ssh/private_key -r user@my.example.com
+  ```
 
-**Make sure that private key is correct permissions**
+* Run script manually:
+  ```bash
+  venv/bin/python3 main.py
+  ```
+* Check backup archive and make shure that all is ok.
 
-Correct permissions: `-r--------`
+## Scheduling
 
-```bash
-chmod 400 ~/.ssh/private_key
-```
-
-**Known hosts**
-
-For new remote servers check that ssh/scp connections is added to known_host, or just connect first time manually:
-
-```bash
-ssh -p 22 -i ~/.ssh/private_key -r user@my.example.com
-```
-
-**Manual test**
-
-```bash
-venv/bin/python3 main.py
-```
-
-**Script scheduling via cron**
-
-Edit cronfile:
-```bash
-crontab -e
-```
-
-[Time periods examples](https://crontab.guru/examples.html). Next example is every day backup:
-
-```text
-0 0 * * * cd /workdir && venv/bin/python3 main.py >> /workdir/logs.txt 2>&1
-```
+* Script scheduling via cron. Edit cronfile:
+  ```bash
+  crontab -e
+  ```
+* Paste this line to end of cronfile, where `/workdir` is path to cloned repo. Next example is every day at 00:00 backup [More examples](https://crontab.guru/examples.html). :
+  ```text
+  0 0 * * * cd /workdir && venv/bin/python3 main.py >> /workdir/logs.txt 2>&1
+  ```
