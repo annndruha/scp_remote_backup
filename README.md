@@ -1,5 +1,5 @@
 # SCP Remote Backup (Ubuntu)
-Script for pull some folders/files from another server and zip it as backup.
+Script for pull some folders/files from another server and zip it as backup. Also send a telegram message about succeed/fail backup.
 
 # Install and setup
 
