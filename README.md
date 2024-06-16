@@ -21,7 +21,7 @@ Copy configs to repository root directory:
 cp -t . config_examples/.env config_examples/backup_folders.json
 ```
 
-Change configs values with you tokens and remote backup folders.
+Change `.env`-file with you tokens and specify remote folders needs to backup in `backup_folders.json`.
 
 **Make sure that private key is correct permissions**
 
