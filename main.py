@@ -81,7 +81,7 @@ def make_backup(_archive):
 
     archive_name = os.path.join(BACKUP_FOLDER, f'{_archive["name"]}_{stamp}')
     shutil.make_archive(archive_name, 'zip', temp_folder)
-    shutil.rmtree(temp_folder)
+    shutil.rmtree(TEMP)
 
     send_telegram_message('✅🔄 Backup successful: ' + _archive["name"])
 
