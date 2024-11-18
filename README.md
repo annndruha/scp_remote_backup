@@ -13,7 +13,7 @@ Script for pull some folders/files from another server and zip it as backup. Als
   python3 -m venv venv && venv/bin/python3 -m pip install -r requirements.txt
   ```
 
-* Copy configs to repository root directory:
+* Copy example configs from config_examples to repository root:
   ```bash
   cp -t . config_examples/.env config_examples/backup_folders.json
   ```
