@@ -1,4 +1,6 @@
 {
+  "backup_folder_size_limit": "10 GB",
+  "backup_folder_name": "backups",
   "backup_archives": [
     {
       "name": "my_cool_service_need_to_backup",
